@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cruise Boat Adventures - Home</title>
+    <meta
+      name="description"
+      content="Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond with Cruise Boat Adventures."
+    />
+    <title>Cruise Boat Adventures – Home</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
-      <nav>
+      <nav aria-label="Main menu">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
@@ -20,14 +24,21 @@
     <main>
       <!-- Hero Section -->
       <section id="hero">
-        <img src="images/cruise.jpg" alt="A nice cruise boat on the ocean" />
+        <picture>
+          <source media="(max-width: 600px)" srcset="images/cruise.jpg" />
+          <img
+            src="images/cruise.jpg"
+            alt="Sunlit cruise boat slicing through turquoise waters"
+            loading="lazy"
+          />
+        </picture>
       </section>
 
       <!-- Itinerary -->
-      <section id="itinerary">
-        <h2>6 Days Trip Itinerary</h2>
+      <section id="itinerary" aria-labelledby="itineraryHeading">
+        <h2 id="itineraryHeading">6-Day Trip Itinerary</h2>
         <ul>
-          <li><strong>Day 1:</strong> Bali - Nusa Lembongan - Nusa Penida</li>
+          <li><strong>Day 1:</strong> Bali – Nusa Lembongan – Nusa Penida</li>
           <li><strong>Day 2:</strong> Heading to Lombok</li>
           <li><strong>Day 3:</strong> Heading to Sumbawa</li>
           <li><strong>Day 4:</strong> Free Day / Explore Locally</li>
@@ -36,27 +47,31 @@
         </ul>
       </section>
 
-      <!-- Facility -->
+      <!-- Facilities -->
       <section id="facility">
-        <h2>Facility</h2>
+        <h2>Facilities</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. (Edit as
-          needed)
+          Sunrise snorkel trips around Blue Lagoon, sundeck lounges, on-board
+          chef serving fresh catch of the day, plus comfy cabins with ocean
+          views.
         </p>
       </section>
 
       <!-- Terms & Conditions -->
       <section id="terms">
         <h2>Terms &amp; Conditions</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. (Edit as
-          needed)
-        </p>
+        <details>
+          <summary>Read our full terms &amp; conditions</summary>
+          <p>
+            Your detailed T&amp;C go here—cancellations, deposits, safety rules,
+            etc.
+          </p>
+        </details>
       </section>
 
       <!-- Pricing -->
-      <section id="pricing">
-        <h2>Boat Pricing</h2>
+      <section id="pricing" aria-labelledby="pricingHeading">
+        <h2 id="pricingHeading">Boat Pricing</h2>
         <ul>
           <li><strong>Standard:</strong> Rp 6.000.000/person</li>
           <li><strong>Phinisi:</strong> Rp 8.000.000/person</li>
@@ -84,6 +99,6 @@
       <p>&copy; 2025 Cruise Boat Adventures. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
   </body>
 </html>

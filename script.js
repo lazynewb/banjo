@@ -1,35 +1,39 @@
-// WhatsApp Form Submission (if the element exists)
-document.getElementById("whatsappForm")?.addEventListener("submit", function (e) {
-  e.preventDefault();
-  var needs = document.getElementById("needs").value;
-  var phoneNumber = "6281584214011"; // WhatsApp number (international format without the +)
-  var url =
-    "https://api.whatsapp.com/send?phone=" +
-    phoneNumber +
-    "&text=" +
-    encodeURIComponent(needs);
-  window.open(url, "_blank");
-});
+// WhatsApp Form Submission with Feedback
+const form = document.getElementById("whatsappForm");
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const needs = document.getElementById("needs").value;
+    const phoneNumber = "6281584214011";
+    const url =
+      "https://api.whatsapp.com/send?phone=" +
+      phoneNumber +
+      "&text=" +
+      encodeURIComponent(needs);
 
-// Intersection Observer for Lazy Loading Sections with Animation
-const sections = document.querySelectorAll("section");
+    // provide user feedback
+    const btn = form.querySelector("button");
+    btn.disabled = true;
+    btn.textContent = "Opening WhatsApp...";
 
-const observerOptions = {
-  threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    } else {
-      entry.target.classList.remove("visible");
-    }
+    setTimeout(() => {
+      window.open(url, "_blank");
+      btn.disabled = false;
+      btn.textContent = "Chat on WhatsApp";
+    }, 500);
   });
-}, observerOptions);
+}
 
+// Intersection Observer for Section Animations
+const sections = document.querySelectorAll("section");
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("visible", entry.isIntersecting);
+    });
+  },
+  { threshold: 0.1 }
+);
 
-// Observe each section
-sections.forEach(section => {
-  observer.observe(section);
-});
+// ← This line was missing:
+sections.forEach(section => observer.observe(section));

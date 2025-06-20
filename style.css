@@ -1,3 +1,4 @@
+/* style.css */
 /* Reset */
 * {
   margin: 0;
@@ -5,13 +6,19 @@
   box-sizing: border-box;
 }
 
-/* Basic Styling */
+/* Base */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
   background: #f4f4f4;
-  margin: 0;
+}
+
+main {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 1rem auto;
+  background: #fff;
 }
 
 /* Header & Navigation */
@@ -46,15 +53,7 @@ nav ul li a {
   display: block;
 }
 
-/* Main Content */
-main {
-  padding: 1rem;
-  max-width: 1200px;
-  margin: auto;
-  background: #fff;
-}
-
-/* Section Animation (Lazy Loading) */
+/* Sections */
 section {
   margin-bottom: 2rem;
   opacity: 0;
@@ -67,27 +66,27 @@ section.visible {
   transform: translateY(0);
 }
 
+/* Headings */
 h2 {
   margin-bottom: 1rem;
   color: #004080;
 }
 
-/* Itinerary & Pricing Lists */
+/* Lists */
 #itinerary ul,
 #pricing ul {
   list-style-type: none;
-  padding-left: 0;
 }
 
 #itinerary li,
 #pricing li {
-  margin-bottom: 0.5rem;
   background: #e0f0ff;
+  margin-bottom: 0.5rem;
   padding: 0.5rem;
   border-radius: 5px;
 }
 
-/* Contact Form Styling */
+/* Contact Form */
 #contact form {
   display: flex;
   flex-direction: column;
@@ -120,7 +119,7 @@ h2 {
   background: #003366;
 }
 
-/* Footer Styling */
+/* Footer */
 footer {
   text-align: center;
   padding: 1rem;
@@ -128,14 +127,22 @@ footer {
   color: #fff;
 }
 
-/* Responsive Adjustments */
+/* Responsive */
 @media (min-width: 768px) {
+  main {
+    padding: 2rem;
+  }
   nav ul {
     justify-content: flex-start;
     padding-left: 2rem;
   }
+}
 
-  main {
-    padding: 2rem;
+@media (max-width: 500px) {
+  nav ul {
+    flex-wrap: wrap;
+  }
+  nav ul li {
+    margin: 0.5rem;
   }
 }
