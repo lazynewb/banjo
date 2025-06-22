@@ -7,27 +7,54 @@
       name="description"
       content="Learn more about Cruise Boat Adventures, our mission, crew, and the unforgettable island-hopping experiences we offer."
     />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="About Us – Cruise Boat Adventures" />
+    <meta
+      property="og:description"
+      content="Learn more about Cruise Boat Adventures, our mission, crew, and the unforgettable island-hopping experiences we offer."
+    />
+    <meta property="og:image" content="images/about.jpg" />
+    <meta property="og:url" content="https://yourdomain.com/about.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Cruise Boat Adventures",
+        "description": "We’re a team of sea-lovers and adventure seekers committed to crafting tailor-made island-hopping journeys.",
+        "url": "https://yourdomain.com/about.html",
+        "logo": "https://yourdomain.com/images/logo.png"
+      }
+    </script>
+
     <title>About Us – Cruise Boat Adventures</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
+    <!-- Skip link for accessibility -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <header>
       <nav aria-label="Main menu">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html" aria-current="page">About Us</a></li>
         </ul>
       </nav>
       <h1>About Us</h1>
     </header>
 
-    <main>
+    <main id="main">
       <section id="aboutContent">
         <p>
           We’re a team of sea-lovers and adventure seekers committed to crafting
-          tailor-made island-hopping journeys. With over 10 years navigating
-          these waters, we blend safety, comfort, and local culture into every
-          cruise.
+          tailor-made island-hopping journeys. With over 10 years of experience
+          navigating these waters, we blend safety, comfort, and local culture
+          into every cruise.
         </p>
       </section>
     </main>

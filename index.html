@@ -7,25 +7,62 @@
       name="description"
       content="Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond with Cruise Boat Adventures."
     />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Cruise Boat Adventures – Home" />
+    <meta
+      property="og:description"
+      content="Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond with Cruise Boat Adventures."
+    />
+    <meta property="og:image" content="images/cruise.jpg" />
+    <meta property="og:url" content="https://yourdomain.com/index.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Cruise Boat Adventures",
+        "description": "Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond.",
+        "url": "https://yourdomain.com/",
+        "logo": "https://yourdomain.com/images/logo.png"
+      }
+    </script>
+
     <title>Cruise Boat Adventures – Home</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
+    <!-- Skip link for accessibility -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <header>
       <nav aria-label="Main menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html" aria-current="page">Home</a></li>
           <li><a href="about.html">About Us</a></li>
         </ul>
       </nav>
       <h1>Cruise Boat Adventures</h1>
     </header>
 
-    <main>
+    <main id="main">
       <!-- Hero Section -->
       <section id="hero">
         <picture>
-          <source media="(max-width: 600px)" srcset="images/cruise.jpg" />
+          <!-- WebP variant and fallback for mobile -->
+          <source
+            type="image/webp"
+            media="(max-width: 600px)"
+            srcset="images/cruise-small.webp"
+          />
+          <source
+            type="image/jpeg"
+            media="(max-width: 600px)"
+            srcset="images/cruise-small.jpg"
+          />
           <img
             src="images/cruise.jpg"
             alt="Sunlit cruise boat slicing through turquoise waters"
@@ -51,9 +88,9 @@
       <section id="facility">
         <h2>Facilities</h2>
         <p>
-          Sunrise snorkel trips around Blue Lagoon, sundeck lounges, on-board
-          chef serving fresh catch of the day, plus comfy cabins with ocean
-          views.
+          Enjoy sunrise snorkel trips around Blue Lagoon, relax on our sundeck
+          lounges, savor fresh catch-of-the-day prepared by our on-board chef,
+          and experience ultimate comfort in cabins with ocean views.
         </p>
       </section>
 

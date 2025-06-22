@@ -1,9 +1,33 @@
-// 1) WhatsApp Form Submission with Feedback
+/* script.js */
+
+// --- Debounce Utility Function ---
+function debounce(func, wait = 20, immediate = false) {
+  let timeout;
+  return function () {
+    const context = this,
+      args = arguments;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+// --- WhatsApp Form Submission with Feedback ---
 const form = document.getElementById("whatsappForm");
 if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const needs = document.getElementById("needs").value;
+    let needsInput = document.getElementById("needs");
+    const needs = needsInput.value.trim();
+    if (needs === "") {
+      alert("Please enter your needs.");
+      return;
+    }
     const phoneNumber = "6281584214011";
     const url =
       "https://api.whatsapp.com/send?phone=" +
@@ -15,39 +39,69 @@ if (form) {
     btn.disabled = true;
     btn.textContent = "Opening WhatsApp...";
 
-    setTimeout(() => {
-      window.open(url, "_blank");
+    try {
+      setTimeout(() => {
+        const popup = window.open(url, "_blank");
+        if (!popup) {
+          alert("Popup blocked! Please allow popups for this website.");
+        }
+        btn.disabled = false;
+        btn.textContent = "Chat on WhatsApp";
+      }, 500);
+    } catch (error) {
+      console.error("Error opening WhatsApp URL:", error);
       btn.disabled = false;
       btn.textContent = "Chat on WhatsApp";
-    }, 500);
+    }
   });
 }
 
-// 2) Track scroll direction
+// --- Scroll Direction Tracking (Debounced) ---
 let lastScrollY = window.scrollY;
 let scrollDown = true;
-window.addEventListener("scroll", () => {
+
+const trackScrollDirection = debounce(() => {
   scrollDown = window.scrollY > lastScrollY;
   lastScrollY = window.scrollY;
-});
+}, 50);
 
-// 3) Intersection Observer: reveal on down, hide on up
+window.addEventListener("scroll", trackScrollDirection);
+
+// --- Intersection Observer for Reveal Animations ---
 const sections = document.querySelectorAll("section");
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      // if at least 10% visible, always reveal
-      if (entry.intersectionRatio > 0.1) {
-        entry.target.classList.add("visible");
-      }
-      // if less than 10% visible AND we're scrolling up, hide
-      else if (!scrollDown) {
-        entry.target.classList.remove("visible");
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
 
-// start observing
-sections.forEach((section) => observer.observe(section));
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0.1) {
+          entry.target.classList.add("visible");
+        } else if (!scrollDown) {
+          entry.target.classList.remove("visible");
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  sections.forEach((section) => observer.observe(section));
+} else {
+  // Fallback: Show all sections if Intersection Observer is unavailable
+  sections.forEach((section) => section.classList.add("visible"));
+}
+
+// --- Service Worker Registration for PWA ---
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then((registration) => {
+        console.log(
+          "Service Worker registered with scope:",
+          registration.scope
+        );
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
+}
