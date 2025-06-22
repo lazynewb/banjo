@@ -5,64 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Learn more about Cruise Boat Adventures, our mission, crew, and the unforgettable island-hopping experiences we offer."
+      content="About Wade Trip – Who we are and our mission."
     />
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="About Us – Cruise Boat Adventures" />
-    <meta
-      property="og:description"
-      content="Learn more about Cruise Boat Adventures, our mission, crew, and the unforgettable island-hopping experiences we offer."
-    />
-    <meta property="og:image" content="images/about.jpg" />
-    <meta property="og:url" content="https://yourdomain.com/about.html" />
-    <meta property="og:type" content="website" />
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Cruise Boat Adventures",
-        "description": "We’re a team of sea-lovers and adventure seekers committed to crafting tailor-made island-hopping journeys.",
-        "url": "https://yourdomain.com/about.html",
-        "logo": "https://yourdomain.com/images/logo.png"
-      }
-    </script>
-
-    <title>About Us – Cruise Boat Adventures</title>
+    <title>About Us – Wade Trip</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="manifest" href="manifest.json" />
   </head>
   <body>
-    <!-- Skip link for accessibility -->
     <a class="skip-link" href="#main">Skip to content</a>
-
     <header>
-      <nav aria-label="Main menu">
+      <nav>
+        <div class="logo">Wade Trip</div>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html" aria-current="page">About Us</a></li>
+          <li><a href="about.html" class="active">About Us</a></li>
+          <li><a href="index.html#services">Experience</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
-      <h1>About Us</h1>
+      <div class="about-hero">
+        <div class="overlay"></div>
+        <div class="hero-text">
+          <h1>About Wade Trip</h1>
+        </div>
+      </div>
     </header>
-
     <main id="main">
-      <section id="aboutContent">
+      <section class="content-section">
+        <h2>Our Story</h2>
         <p>
-          We’re a team of sea-lovers and adventure seekers committed to crafting
-          tailor-made island-hopping journeys. With over 10 years of experience
-          navigating these waters, we blend safety, comfort, and local culture
-          into every cruise.
+          At Wade Trip, we create bespoke island-hopping journeys that blend
+          adventure and luxury. With over a decade of experience navigating
+          exotic waters, our team is dedicated to delivering unforgettable sea
+          experiences.
+        </p>
+      </section>
+      <section class="content-section">
+        <h2>Our Mission</h2>
+        <p>
+          We are committed to transforming the way travelers experience the
+          ocean by providing exclusive cruises that combine comfort,
+          exploration, and personalized service.
         </p>
       </section>
     </main>
-
     <footer>
-      <p>&copy; 2025 Cruise Boat Adventures. All rights reserved.</p>
+      <p>&copy; 2025 Wade Trip. All rights reserved.</p>
     </footer>
-
     <script src="script.js" defer></script>
   </body>
 </html>

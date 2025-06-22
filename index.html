@@ -5,119 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond with Cruise Boat Adventures."
+      content="Wade Trip – Explore exclusive island-hopping experiences."
     />
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Cruise Boat Adventures – Home" />
-    <meta
-      property="og:description"
-      content="Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond with Cruise Boat Adventures."
-    />
-    <meta property="og:image" content="images/cruise.jpg" />
-    <meta property="og:url" content="https://yourdomain.com/index.html" />
-    <meta property="og:type" content="website" />
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "TravelAgency",
-        "name": "Cruise Boat Adventures",
-        "description": "Explore 6 days of island-hopping adventure across Bali, Lombok, Komodo, and beyond.",
-        "url": "https://yourdomain.com/",
-        "logo": "https://yourdomain.com/images/logo.png"
-      }
-    </script>
-
-    <title>Cruise Boat Adventures – Home</title>
+    <title>Wade Trip</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="manifest" href="manifest.json" />
   </head>
   <body>
     <!-- Skip link for accessibility -->
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <!-- Header with sticky navigation and full-width hero -->
     <header>
-      <nav aria-label="Main menu">
+      <nav>
+        <div class="logo">Wade Trip</div>
         <ul>
-          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="index.html" class="active">Home</a></li>
           <li><a href="about.html">About Us</a></li>
+          <li><a href="#services">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <h1>Cruise Boat Adventures</h1>
+      <div class="hero">
+        <div class="overlay"></div>
+        <div class="hero-text">
+          <h1>Discover Island Paradises</h1>
+          <p>6 days of adventure across Bali, Lombok, Komodo, and more</p>
+          <a href="#itinerary" class="cta-button">Explore Itinerary</a>
+        </div>
+      </div>
     </header>
 
+    <!-- Main content -->
     <main id="main">
-      <!-- Hero Section -->
-      <section id="hero">
-        <picture>
-          <!-- WebP variant and fallback for mobile -->
-          <source
-            type="image/webp"
-            media="(max-width: 600px)"
-            srcset="images/cruise-small.webp"
-          />
-          <source
-            type="image/jpeg"
-            media="(max-width: 600px)"
-            srcset="images/cruise-small.jpg"
-          />
-          <img
-            src="images/cruise.jpg"
-            alt="Sunlit cruise boat slicing through turquoise waters"
-            loading="lazy"
-          />
-        </picture>
+      <!-- Itinerary Section -->
+      <section id="itinerary" class="content-section">
+        <h2>6-Day Trip Itinerary</h2>
+        <div class="grid">
+          <article class="itinerary-item">
+            <h3>Day 1</h3>
+            <p>Bali – Nusa Lembongan – Nusa Penida</p>
+          </article>
+          <article class="itinerary-item">
+            <h3>Day 2</h3>
+            <p>Heading to Lombok</p>
+          </article>
+          <article class="itinerary-item">
+            <h3>Day 3</h3>
+            <p>Heading to Sumbawa</p>
+          </article>
+          <article class="itinerary-item">
+            <h3>Day 4</h3>
+            <p>Free Day / Explore Locally</p>
+          </article>
+          <article class="itinerary-item">
+            <h3>Day 5</h3>
+            <p>Heading to Flores</p>
+          </article>
+          <article class="itinerary-item">
+            <h3>Day 6</h3>
+            <p>Heading to Komodo Island</p>
+          </article>
+        </div>
       </section>
 
-      <!-- Itinerary -->
-      <section id="itinerary" aria-labelledby="itineraryHeading">
-        <h2 id="itineraryHeading">6-Day Trip Itinerary</h2>
-        <ul>
-          <li><strong>Day 1:</strong> Bali – Nusa Lembongan – Nusa Penida</li>
-          <li><strong>Day 2:</strong> Heading to Lombok</li>
-          <li><strong>Day 3:</strong> Heading to Sumbawa</li>
-          <li><strong>Day 4:</strong> Free Day / Explore Locally</li>
-          <li><strong>Day 5:</strong> Heading to Flores</li>
-          <li><strong>Day 6:</strong> Heading to Komodo Island</li>
-        </ul>
-      </section>
-
-      <!-- Facilities -->
-      <section id="facility">
-        <h2>Facilities</h2>
+      <!-- Experience/Onboard Section -->
+      <section id="services" class="content-section">
+        <h2>Onboard Experience</h2>
         <p>
-          Enjoy sunrise snorkel trips around Blue Lagoon, relax on our sundeck
-          lounges, savor fresh catch-of-the-day prepared by our on-board chef,
-          and experience ultimate comfort in cabins with ocean views.
+          Enjoy curated onboard amenities including superior dining, sun deck
+          retreats, and expert-guided excursions designed for your comfort and
+          adventure.
         </p>
       </section>
 
-      <!-- Terms & Conditions -->
-      <section id="terms">
-        <h2>Terms &amp; Conditions</h2>
-        <details>
-          <summary>Read our full terms &amp; conditions</summary>
-          <p>
-            Your detailed T&amp;C go here—cancellations, deposits, safety rules,
-            etc.
-          </p>
-        </details>
-      </section>
-
-      <!-- Pricing -->
-      <section id="pricing" aria-labelledby="pricingHeading">
-        <h2 id="pricingHeading">Boat Pricing</h2>
-        <ul>
-          <li><strong>Standard:</strong> Rp 6.000.000/person</li>
-          <li><strong>Phinisi:</strong> Rp 8.000.000/person</li>
-        </ul>
-      </section>
-
-      <!-- Contact / Needs Form -->
-      <section id="contact">
-        <h2>Have a need? Let us know!</h2>
+      <!-- Contact Form Section -->
+      <section id="contact" class="content-section">
+        <h2>Have a Need? Let's Chat!</h2>
         <form id="whatsappForm">
           <label for="needs">Your Need:</label>
           <textarea
@@ -125,7 +93,7 @@
             name="needs"
             rows="4"
             required
-            placeholder="Type your needs here..."
+            placeholder="Tell us what you need..."
           ></textarea>
           <button type="submit">Chat on WhatsApp</button>
         </form>
@@ -133,7 +101,7 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 Cruise Boat Adventures. All rights reserved.</p>
+      <p>&copy; 2025 Wade Trip. All rights reserved.</p>
     </footer>
 
     <script src="script.js" defer></script>

@@ -6,6 +6,7 @@ const urlsToCache = [
   "/style.css",
   "/script.js",
   "/images/cruise.jpg",
+  "/images/about.jpg",
   "/images/cruise-small.jpg",
   "/images/cruise-small.webp"
 ];
@@ -22,7 +23,6 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
-      // Return the cached response if found; otherwise, fetch from network
       return response || fetch(event.request);
     })
   );
@@ -34,7 +34,7 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((cacheNames) =>
       Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (!cacheWhitelist.includes(cacheName)) {
             return caches.delete(cacheName);
           }
         })

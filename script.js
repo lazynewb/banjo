@@ -1,6 +1,4 @@
-/* script.js */
-
-// --- Debounce Utility Function ---
+// Debounce Utility Function
 function debounce(func, wait = 20, immediate = false) {
   let timeout;
   return function () {
@@ -17,12 +15,32 @@ function debounce(func, wait = 20, immediate = false) {
   };
 }
 
-// --- WhatsApp Form Submission with Feedback ---
+// Reveal Animation using IntersectionObserver
+const sections = document.querySelectorAll(".content-section");
+
+const observerOptions = {
+  threshold: 0.15,
+};
+
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+sections.forEach((section) => {
+  sectionObserver.observe(section);
+});
+
+// WhatsApp Form Submission
 const form = document.getElementById("whatsappForm");
 if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    let needsInput = document.getElementById("needs");
+    const needsInput = document.getElementById("needs");
     const needs = needsInput.value.trim();
     if (needs === "") {
       alert("Please enter your needs.");
@@ -39,66 +57,47 @@ if (form) {
     btn.disabled = true;
     btn.textContent = "Opening WhatsApp...";
 
-    try {
-      setTimeout(() => {
-        const popup = window.open(url, "_blank");
-        if (!popup) {
-          alert("Popup blocked! Please allow popups for this website.");
-        }
-        btn.disabled = false;
-        btn.textContent = "Chat on WhatsApp";
-      }, 500);
-    } catch (error) {
-      console.error("Error opening WhatsApp URL:", error);
+    setTimeout(() => {
+      const popup = window.open(url, "_blank");
+      if (!popup) {
+        alert("Popup blocked! Please allow popups for this website.");
+      }
       btn.disabled = false;
       btn.textContent = "Chat on WhatsApp";
-    }
+    }, 500);
   });
 }
 
-// --- Scroll Direction Tracking (Debounced) ---
-let lastScrollY = window.scrollY;
-let scrollDown = true;
+// Smooth Scroll for internal links (e.g., CTA buttons)
+const internalLinks = document.querySelectorAll('a[href^="#"]');
+internalLinks.forEach((link) => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+    });
+  });
+});
 
-const trackScrollDirection = debounce(() => {
-  scrollDown = window.scrollY > lastScrollY;
-  lastScrollY = window.scrollY;
-}, 50);
-
-window.addEventListener("scroll", trackScrollDirection);
-
-// --- Intersection Observer for Reveal Animations ---
-const sections = document.querySelectorAll("section");
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0.1) {
-          entry.target.classList.add("visible");
-        } else if (!scrollDown) {
-          entry.target.classList.remove("visible");
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  sections.forEach((section) => observer.observe(section));
-} else {
-  // Fallback: Show all sections if Intersection Observer is unavailable
-  sections.forEach((section) => section.classList.add("visible"));
+// Parallax Scrolling Effect for hero sections
+function parallaxEffect() {
+  const parallaxEls = document.querySelectorAll('.hero, .about-hero');
+  parallaxEls.forEach(el => {
+    let scrolled = window.pageYOffset;
+    // Adjust the factor (0.5) to make the effect more or less accentuated
+    let offset = scrolled * 0.5;
+    el.style.backgroundPosition = `center ${offset}px`;
+  });
 }
+window.addEventListener('scroll', debounce(parallaxEffect, 10));
 
-// --- Service Worker Registration for PWA ---
+// Register Service Worker for PWA support
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("service-worker.js")
       .then((registration) => {
-        console.log(
-          "Service Worker registered with scope:",
-          registration.scope
-        );
+        console.log("Service Worker registered with scope:", registration.scope);
       })
       .catch((error) => {
         console.error("Service Worker registration failed:", error);

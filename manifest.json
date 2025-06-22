@@ -1,11 +1,11 @@
 {
-  "name": "Cruise Boat Adventures",
+  "name": "Wade Trip",
   "short_name": "CruiseAdventures",
-  "start_url": "index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#f4f4f4",
   "theme_color": "#004080",
-  "description": "Explore 6 days of island-hopping adventures with Cruise Boat Adventures.",
+  "description": "Explore unforgettable island-hopping adventures with Wade Trip.",
   "icons": [
     {
       "src": "images/icons/icon-192x192.png",
