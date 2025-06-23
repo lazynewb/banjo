@@ -1,4 +1,4 @@
-/* Reset */
+/* Base Reset */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -9,17 +9,16 @@
 :root {
   --primary-color: #004080;
   --primary-dark: #003366;
-  --secondary-bg: #e0f0ff;
   --body-bg: #f4f4f4;
   --font-color: #333;
   --white: #fff;
   --footer-bg: #222;
-  --transition-duration: 0.8s;
   --font-family: 'Montserrat', sans-serif;
+  --transition-duration: 0.8s;
   --overlay-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Base Styles */
+/* Global Styles */
 body {
   font-family: var(--font-family);
   background: var(--body-bg);
@@ -47,7 +46,7 @@ a {
   top: 0;
 }
 
-/* Navigation & Header */
+/* Header & Navigation */
 header nav {
   display: flex;
   justify-content: space-between;
@@ -59,19 +58,14 @@ header nav {
   top: 0;
   z-index: 10;
 }
-
-header nav .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
+header nav .logo img {
+  height: 50px;
 }
-
 header nav ul {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: 1.5rem;
 }
-
 header nav ul li a {
   color: var(--primary-color);
   padding: 0.5rem;
@@ -83,43 +77,30 @@ header nav ul li a.active {
   border-bottom: 2px solid var(--primary-dark);
 }
 
-/* Hero Sections + Parallax Transition */
-.hero,
-.about-hero {
+/* Hero Section */
+.hero {
   position: relative;
-  width: 100%;
   height: 80vh;
-  background-size: cover;
-  background-position: center;
+  background: url('images/cruise.jpg') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   color: var(--white);
-  /* Smooth transition for parallax background */
-  transition: background-position 0.2s ease-out;
 }
-.hero {
-  background-image: url('images/cruise.jpg');
-}
-.about-hero {
-  background-image: url('images/about.jpg');
-}
-.hero .overlay,
-.about-hero .overlay {
+.hero .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: var(--overlay-color);
-  z-index: 1;
 }
 .hero-text {
   position: relative;
-  z-index: 2;
+  text-align: center;
   max-width: 800px;
   padding: 0 1rem;
+  z-index: 2;
 }
 .hero-text h1 {
   font-size: 3rem;
@@ -134,41 +115,40 @@ header nav ul li a.active {
   color: var(--white);
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
+  display: inline-block;
+  margin-top: 1.5rem;
   transition: background 0.3s;
 }
 .cta-button:hover {
   background: var(--primary-dark);
 }
 
-/* Main Content */
+/* Main Content & Sections */
 main {
-  padding: 3rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 3rem 2rem;
 }
-
 .content-section {
   margin-bottom: 3rem;
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity var(--transition-duration) ease-out, transform var(--transition-duration) ease-out;
+  transition: opacity var(--transition-duration) ease-out,
+              transform var(--transition-duration) ease-out;
 }
 .content-section.visible {
   opacity: 1;
   transform: translateY(0);
 }
 .content-section h2 {
-  font-size: 2rem;
+  text-align: center;
   margin-bottom: 1rem;
   color: var(--primary-color);
-  text-align: center;
 }
 .content-section p {
-  font-size: 1rem;
-  line-height: 1.8;
   text-align: center;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 1.5rem;
 }
 
 /* Itinerary Grid */
@@ -190,8 +170,8 @@ main {
 }
 .itinerary-item h3 {
   font-size: 1.5rem;
-  color: var(--primary-color);
   margin-bottom: 0.5rem;
+  color: var(--primary-color);
 }
 
 /* Contact Form */
@@ -207,22 +187,25 @@ main {
 }
 #contact textarea {
   padding: 0.75rem;
+  margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  resize: vertical;
-  margin-bottom: 1rem;
 }
-#contact button {
+.contact-buttons {
+  display: flex;
+  gap: 10px;
+}
+.contact-buttons button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 25px;
   background: var(--primary-color);
   color: var(--white);
-  border: none;
-  padding: 0.75rem;
-  border-radius: 25px;
-  font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s;
 }
-#contact button:hover {
+.contact-buttons button:hover {
   background: var(--primary-dark);
 }
 
@@ -237,19 +220,20 @@ footer {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .hero-text h1 {
-    font-size: 2.5rem;
-  }
-  .hero-text p {
-    font-size: 1.2rem;
-  }
   header nav {
     flex-direction: column;
     gap: 1rem;
   }
   header nav ul {
     flex-direction: column;
-    gap: 1rem;
     align-items: center;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
   }
 }

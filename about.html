@@ -8,18 +8,33 @@
       content="About Wade Trip – Who we are and our mission."
     />
     <title>About Us – Wade Trip</title>
+
+    <!-- Favicon Links -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon-32x32.png"
+    />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="manifest" href="manifest.json" />
+    <!-- Preload the background image for performance -->
+    <link rel="preload" as="image" href="images/about.jpg" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header>
-      <nav>
-        <div class="logo">Wade Trip</div>
+      <nav role="navigation" aria-label="Main Navigation">
+        <!-- Logo as an image -->
+        <a href="index.html" class="logo">
+          <img src="images/logo.png" alt="Wade Trip Logo" />
+        </a>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html" class="active">About Us</a></li>
@@ -35,8 +50,8 @@
       </div>
     </header>
     <main id="main">
-      <section class="content-section">
-        <h2>Our Story</h2>
+      <section class="content-section" aria-labelledby="story-heading">
+        <h2 id="story-heading">Our Story</h2>
         <p>
           At Wade Trip, we create bespoke island-hopping journeys that blend
           adventure and luxury. With over a decade of experience navigating
@@ -44,8 +59,8 @@
           experiences.
         </p>
       </section>
-      <section class="content-section">
-        <h2>Our Mission</h2>
+      <section class="content-section" aria-labelledby="mission-heading">
+        <h2 id="mission-heading">Our Mission</h2>
         <p>
           We are committed to transforming the way travelers experience the
           ocean by providing exclusive cruises that combine comfort,

@@ -2,108 +2,85 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Wade Trip – Explore exclusive island-hopping experiences."
-    />
-    <title>Wade Trip</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wade Trip - Cruise Adventures</title>
     <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <!-- Skip link for accessibility -->
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <!-- Header with sticky navigation and full-width hero -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <header>
       <nav>
-        <div class="logo">Wade Trip</div>
+        <div class="logo">
+          <img src="images/logo.png" alt="Wade Trip Logo" loading="lazy" />
+        </div>
         <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="#services">Experience</a></li>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#itinerary">Itinerary</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <div class="hero">
-        <div class="overlay"></div>
-        <div class="hero-text">
-          <h1>Discover Island Paradises</h1>
-          <p>6 days of adventure across Bali, Lombok, Komodo, and more</p>
-          <a href="#itinerary" class="cta-button">Explore Itinerary</a>
-        </div>
-      </div>
     </header>
 
-    <!-- Main content -->
-    <main id="main">
-      <!-- Itinerary Section -->
-      <section id="itinerary" class="content-section">
-        <h2>6-Day Trip Itinerary</h2>
-        <div class="grid">
-          <article class="itinerary-item">
-            <h3>Day 1</h3>
-            <p>Bali – Nusa Lembongan – Nusa Penida</p>
-          </article>
-          <article class="itinerary-item">
-            <h3>Day 2</h3>
-            <p>Heading to Lombok</p>
-          </article>
-          <article class="itinerary-item">
-            <h3>Day 3</h3>
-            <p>Heading to Sumbawa</p>
-          </article>
-          <article class="itinerary-item">
-            <h3>Day 4</h3>
-            <p>Free Day / Explore Locally</p>
-          </article>
-          <article class="itinerary-item">
-            <h3>Day 5</h3>
-            <p>Heading to Flores</p>
-          </article>
-          <article class="itinerary-item">
-            <h3>Day 6</h3>
-            <p>Heading to Komodo Island</p>
-          </article>
-        </div>
-      </section>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="overlay"></div>
+      <div class="hero-text">
+        <h1>Embark on Your Adventure</h1>
+        <p>Explore unforgettable island-hopping adventures with Wade Trip.</p>
+        <a href="#itinerary" class="cta-button">Discover More</a>
+      </div>
+    </section>
 
-      <!-- Experience/Onboard Section -->
-      <section id="services" class="content-section">
-        <h2>Onboard Experience</h2>
-        <p>
-          Enjoy curated onboard amenities including superior dining, sun deck
-          retreats, and expert-guided excursions designed for your comfort and
-          adventure.
-        </p>
+    <!-- Main Content -->
+    <main id="main-content">
+      <!-- Itinerary Section with Dynamic Filtering -->
+      <section class="content-section" id="itinerary">
+        <h2>Itinerary</h2>
+        <p>Filter your journey:</p>
+        <select id="itineraryFilter">
+          <option value="all">All Destinations</option>
+          <option value="beach">Beach</option>
+          <option value="city">City</option>
+          <option value="adventure">Adventure</option>
+        </select>
+        <div class="grid">
+          <div class="itinerary-item" data-category="beach">
+            <h3>Sunny Beach</h3>
+            <p>Relax on golden sands.</p>
+          </div>
+          <div class="itinerary-item" data-category="city">
+            <h3>Urban Escape</h3>
+            <p>Explore vibrant cityscapes.</p>
+          </div>
+          <div class="itinerary-item" data-category="adventure">
+            <h3>Jungle Expedition</h3>
+            <p>Discover hidden trails.</p>
+          </div>
+        </div>
       </section>
 
       <!-- Contact Form Section -->
-      <section id="contact" class="content-section">
-        <h2>Have a Need? Let's Chat!</h2>
+      <section class="content-section" id="contact">
+        <h2>Contact Us</h2>
         <form id="whatsappForm">
-          <label for="needs">Your Need:</label>
+          <label for="needs">Tell us your needs:</label>
           <textarea
             id="needs"
-            name="needs"
-            rows="4"
+            placeholder="Your message..."
             required
-            placeholder="Tell us what you need..."
           ></textarea>
-          <button type="submit">Chat on WhatsApp</button>
+          <div class="contact-buttons">
+            <button type="submit">Chat on WhatsApp</button>
+            <button type="button" id="telegramButton">Chat on Telegram</button>
+          </div>
         </form>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2025 Wade Trip. All rights reserved.</p>
+      <p>&copy; 2025 Wade Trip. All Rights Reserved.</p>
     </footer>
-
-    <script src="script.js" defer></script>
   </body>
 </html>
