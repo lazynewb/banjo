@@ -1,63 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta
+      content="Explore unforgettable island-hopping adventures with Wade Trip."
+      name="description"
+    />
     <title>Wade Trip - Cruise Adventures</title>
-    <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <link href="manifest.json" rel="manifest" />
+    <link href="style.css" rel="stylesheet" />
+    <script defer src="script.js"></script>
+    <link
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
-    <header>
-      <nav>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <nav aria-label="Main Navigation">
         <div class="logo">
-          <img src="images/logo.png" alt="Wade Trip Logo" loading="lazy" />
+          <img alt="Wade Trip Logo" loading="lazy" src="images/logo.png" />
         </div>
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#itinerary">Itinerary</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a class="active" href="#hero">Home</a></li>
+          <li><a href="#itinerary">Your Journey</a></li>
+          <li><a href="#contact">Contact Us</a></li>
         </ul>
       </nav>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="hero">
+    <section class="hero" id="hero">
       <div class="overlay"></div>
       <div class="hero-text">
         <h1>Embark on Your Adventure</h1>
         <p>Explore unforgettable island-hopping adventures with Wade Trip.</p>
-        <a href="#itinerary" class="cta-button">Discover More</a>
+        <a class="cta-button" href="#itinerary">Discover More</a>
       </div>
     </section>
 
     <!-- Main Content -->
     <main id="main-content">
-      <!-- Itinerary Section with Dynamic Filtering -->
+      <!-- Itinerary Section with Swiper Pagination Dots -->
       <section class="content-section" id="itinerary">
-        <h2>Itinerary</h2>
-        <p>Filter your journey:</p>
-        <select id="itineraryFilter">
-          <option value="all">All Destinations</option>
-          <option value="beach">Beach</option>
-          <option value="city">City</option>
-          <option value="adventure">Adventure</option>
-        </select>
-        <div class="grid">
-          <div class="itinerary-item" data-category="beach">
-            <h3>Sunny Beach</h3>
-            <p>Relax on golden sands.</p>
+        <h2>Your Journey</h2>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide itinerary-item" data-category="bali">
+              <img alt="Bali" src="images/about.jpg" />
+              <h1>Bali</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="lombok">
+              <img alt="Lombok" src="images/about.jpg" />
+              <h1>Lombok</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="sumbawa">
+              <img alt="Sumbawa" src="images/about.jpg" />
+              <h1>Sumbawa</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="komodo">
+              <img alt="Komodo Island" src="images/about.jpg" />
+              <h1>Komodo Island</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
           </div>
-          <div class="itinerary-item" data-category="city">
-            <h3>Urban Escape</h3>
-            <p>Explore vibrant cityscapes.</p>
-          </div>
-          <div class="itinerary-item" data-category="adventure">
-            <h3>Jungle Expedition</h3>
-            <p>Discover hidden trails.</p>
-          </div>
+          <!-- Dot Pagination -->
+          <div class="swiper-pagination"></div>
         </div>
       </section>
 
@@ -73,14 +86,15 @@
           ></textarea>
           <div class="contact-buttons">
             <button type="submit">Chat on WhatsApp</button>
-            <button type="button" id="telegramButton">Chat on Telegram</button>
+            <button id="telegramButton" type="button">Chat on Telegram</button>
           </div>
         </form>
       </section>
     </main>
 
     <footer>
-      <p>&copy; 2025 Wade Trip. All Rights Reserved.</p>
+      <p>© 2025 Wade Trip. All Rights Reserved.</p>
     </footer>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   </body>
 </html>

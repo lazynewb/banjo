@@ -1,59 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Dynamic Itinerary Filtering
-  const itineraryFilter = document.getElementById("itineraryFilter");
-  itineraryFilter.addEventListener("change", (e) => {
-    const filterValue = e.target.value;
-    const items = document.querySelectorAll(".itinerary-item");
-    items.forEach((item) => {
-      if (filterValue === "all" || item.dataset.category === filterValue) {
-        item.style.display = "block";
-      } else {
-        item.style.display = "none";
-      }
-    });
-  });
-
-  // Reveal Animation using IntersectionObserver
+  // Content Reveal Animation using IntersectionObserver
   const sections = document.querySelectorAll(".content-section");
   const observerOptions = { threshold: 0.15 };
-  const sectionObserver = new IntersectionObserver((entries, observer) => {
+  const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
+      } else {
+        // Remove visible to allow re-animation when scrolling back into view
+        entry.target.classList.remove("visible");
       }
     });
   }, observerOptions);
   sections.forEach((section) => sectionObserver.observe(section));
+
+  // Utility function for opening chat popups
+  function openChat(url, button, openingText, defaultText) {
+    button.disabled = true;
+    button.textContent = openingText;
+    setTimeout(() => {
+      const popup = window.open(url, "_blank");
+      if (!popup) {
+        alert("Popup blocked! Please allow popups for this website.");
+      }
+      button.disabled = false;
+      button.textContent = defaultText;
+    }, 500);
+  }
 
   // WhatsApp Form Submission
   const form = document.getElementById("whatsappForm");
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const needsInput = document.getElementById("needs");
-      const needs = needsInput.value.trim();
+      const needs = document.getElementById("needs").value.trim();
       if (!needs) {
         alert("Please enter your needs.");
         return;
       }
-      const phoneNumber = "6281584214011";
       const url =
-        "https://api.whatsapp.com/send?phone=" +
-        phoneNumber +
-        "&text=" +
+        "https://api.whatsapp.com/send?phone=6281584214011&text=" +
         encodeURIComponent(needs);
       const whatsappButton = form.querySelector("button[type='submit']");
-      whatsappButton.disabled = true;
-      whatsappButton.textContent = "Opening WhatsApp...";
-      setTimeout(() => {
-        const popup = window.open(url, "_blank");
-        if (!popup) {
-          alert("Popup blocked! Please allow popups for this website.");
-        }
-        whatsappButton.disabled = false;
-        whatsappButton.textContent = "Chat on WhatsApp";
-      }, 500);
+      openChat(url, whatsappButton, "Opening WhatsApp...", "Chat on WhatsApp");
     });
   }
 
@@ -61,57 +50,83 @@ document.addEventListener("DOMContentLoaded", () => {
   const telegramButton = document.getElementById("telegramButton");
   if (telegramButton) {
     telegramButton.addEventListener("click", () => {
-      const needsInput = document.getElementById("needs");
-      const needs = needsInput.value.trim();
+      const needs = document.getElementById("needs").value.trim();
       if (!needs) {
         alert("Please enter your needs.");
         return;
       }
-      const telegramUrl = "https://t.me/wadetrip?text=" + encodeURIComponent(needs);
-      telegramButton.disabled = true;
-      telegramButton.textContent = "Opening Telegram...";
-      setTimeout(() => {
-        const popup = window.open(telegramUrl, "_blank");
-        if (!popup) {
-          alert("Popup blocked! Please allow popups for this website.");
-        }
-        telegramButton.disabled = false;
-        telegramButton.textContent = "Chat on Telegram";
-      }, 500);
+      const telegramUrl =
+        "https://t.me/wadetrip?text=" + encodeURIComponent(needs);
+      openChat(
+        telegramUrl,
+        telegramButton,
+        "Opening Telegram...",
+        "Chat on Telegram"
+      );
     });
   }
 
-  // Smooth Scroll for Internal Links
+  // Smooth Scroll for Internal Links with offset and highlight animation
   const internalLinks = document.querySelectorAll('a[href^="#"]');
   internalLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
-      const targetElement = document.querySelector(this.getAttribute("href"));
+      const targetId = this.getAttribute("href").slice(1);
+      const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
+        const headerHeight =
+          document.querySelector("header.site-header")?.offsetHeight || 0;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerHeight;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        targetElement.classList.add("highlight");
+        setTimeout(() => targetElement.classList.remove("highlight"), 1000);
       }
     });
   });
 
-  // Parallax Scrolling using requestAnimationFrame
+  // Parallax Scrolling using requestAnimationFrame with prefers-reduced-motion check
   const parallaxEls = document.querySelectorAll(".hero, .about-hero");
   let lastKnownScrollPosition = 0;
   let ticking = false;
-  function parallaxEffect(scrollPos) {
-    parallaxEls.forEach((el) => {
-      const offset = scrollPos * 0.5;
-      el.style.backgroundPosition = `center ${offset}px`;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (!prefersReducedMotion) {
+    window.addEventListener("scroll", () => {
+      lastKnownScrollPosition = window.pageYOffset;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          parallaxEls.forEach((el) => {
+            const offset = lastKnownScrollPosition * 0.5;
+            el.style.backgroundPosition = `center ${offset}px`;
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     });
   }
-  window.addEventListener("scroll", () => {
-    lastKnownScrollPosition = window.pageYOffset;
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        parallaxEffect(lastKnownScrollPosition);
-        ticking = false;
-      });
-      ticking = true;
-    }
+
+  // Swiper Initialization with Touch and Mousewheel Gestures & Dot Pagination
+  const swiper = new Swiper(".swiper-container", {
+    slidesPerView: 1.2,
+    spaceBetween: 20,
+    loop: false,
+    simulateTouch: true,
+    grabCursor: true,
+    // Enable mousewheel scrolling for two-finger touchpad gestures
+    mousewheel: { forceToAxis: true },
+    // Dot pagination configuration
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    },
   });
 
   // Service Worker Registration for PWA
@@ -120,7 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
       navigator.serviceWorker
         .register("service-worker.js")
         .then((registration) => {
-          console.log("Service Worker registered with scope:", registration.scope);
+          console.log(
+            "Service Worker registered with scope:",
+            registration.scope
+          );
         })
         .catch((error) => {
           console.error("Service Worker registration failed:", error);
