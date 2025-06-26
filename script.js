@@ -1,26 +1,27 @@
+// script.js
 document.addEventListener("DOMContentLoaded", () => {
-  // Content Reveal Animation
+  // 1) Content Reveal Animation
   const sections = document.querySelectorAll(".content-section");
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) =>
       entry.target.classList.toggle("visible", entry.isIntersecting)
     );
   }, { threshold: 0.15 });
-  sections.forEach((section) => sectionObserver.observe(section));
+  sections.forEach((s) => sectionObserver.observe(s));
 
-  // Chat popup utility
+  // 2) Chat Popup Utility
   function openChat(url, button, openingText, defaultText) {
     button.disabled = true;
     button.textContent = openingText;
     setTimeout(() => {
-      const popup = window.open(url, "_blank");
-      if (!popup) alert("Popup blocked! Please allow popups.");
+      const pop = window.open(url, "_blank");
+      if (!pop) alert("Popup blocked! Please allow popups.");
       button.disabled = false;
       button.textContent = defaultText;
     }, 500);
   }
 
-  // WhatsApp Form
+  // 3) WhatsApp Form
   const form = document.getElementById("whatsappForm");
   if (form) {
     form.addEventListener("submit", (e) => {
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Telegram Button
+  // 4) Telegram Button
   const telegramBtn = document.getElementById("telegramButton");
   if (telegramBtn) {
     telegramBtn.addEventListener("click", () => {
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Smooth Scroll + Highlight
+  // 5) Smooth Scroll + Highlight
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Parallax
+  // 6) Parallax
   const parallaxEls = document.querySelectorAll(".hero, .about-hero");
   let lastScroll = 0,
     ticking = false;
@@ -85,18 +86,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Swiper Init
+  // 7) Swiper Init with Breakpoints
   const swiper = new Swiper(".swiper-container", {
-    slidesPerView: 1.2,
+    // default desktop
+    slidesPerView: 3,
     spaceBetween: 20,
+
+    // responsive
+    breakpoints: {
+      // mobile up to 639px
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+      // tablet 640px+
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      // desktop 1024px+
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+    },
+
     simulateTouch: true,
     grabCursor: true,
     mousewheel: { forceToAxis: true },
     pagination: { el: ".swiper-pagination", clickable: true },
-    breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
   });
 
-  // Equalize Card Heights
+  // 8) Equalize Card Heights
   function equalizeCardHeights() {
     let maxH = 0;
     const cards = document.querySelectorAll(".swiper-slide");
@@ -105,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach((c) => (c.style.height = maxH + "px"));
   }
 
-  // Equalize Slide Headings
+  // 9) Equalize Slide Headings
   function equalizeSlideHeadings() {
     const heads = document.querySelectorAll(".swiper-slide h1");
     let maxH = 0;
@@ -121,24 +142,24 @@ document.addEventListener("DOMContentLoaded", () => {
     equalizeSlideHeadings();
   });
 
-  // Mobile Menu Toggle
+  // 10) Mobile Menu Toggle
   const menuToggle = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector(".nav-links");
   if (menuToggle && navLinks) {
     menuToggle.addEventListener("click", () => {
       navLinks.classList.toggle("show");
     });
-    // close menu on link click
+    // close on link click
     navLinks.querySelectorAll("a").forEach((a) =>
       a.addEventListener("click", () => navLinks.classList.remove("show"))
     );
-    // hide on desktop resize
+    // hide if resized above mobile
     window.addEventListener("resize", () => {
       if (window.innerWidth > 768) navLinks.classList.remove("show");
     });
   }
 
-  // Service Worker
+  // 11) Service Worker for PWA
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker
