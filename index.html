@@ -23,7 +23,12 @@
         <div class="logo">
           <img alt="Wade Trip Logo" loading="lazy" src="images/logo.png" />
         </div>
-        <ul>
+
+        <!-- This is your “hamburger” button -->
+        <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+
+        <!-- NOTE the class="nav-links" here -->
+        <ul class="nav-links">
           <li><a class="active" href="#hero">Home</a></li>
           <li><a href="#itinerary">Your Journey</a></li>
           <li><a href="#contact">Contact Us</a></li>
@@ -46,31 +51,183 @@
       <!-- Itinerary Section with Swiper Pagination Dots -->
       <section class="content-section" id="itinerary">
         <h2>Your Journey</h2>
+        <p>
+          Prepare for an extraordinary journey through Indonesia's most
+          breathtaking islands. Our meticulously planned itinerary ensures
+          you'll experience the best of Bali, the Nusa Islands, Lombok, Sumbawa,
+          and the iconic Komodo Island. Get ready for stunning landscapes,
+          vibrant marine life, and encounters with incredible wildlife.
+        </p>
         <div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide itinerary-item" data-category="bali">
               <img alt="Bali" src="images/about.jpg" />
-              <h1>Bali</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h1>Bali to the Nusa Islands</h1>
+              <p>
+                Our adventure begins as we set sail from Bali, crossing the
+                azure waters to the enchanting Nusa Lembongan. From there, we
+                journey onward to Nusa Penida, a captivating island ready to be
+                explored.
+              </p>
             </div>
             <div class="swiper-slide itinerary-item" data-category="lombok">
               <img alt="Lombok" src="images/about.jpg" />
-              <h1>Lombok</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h1>Lombok & Gili Trawangan</h1>
+              <p>
+                We escape to the serene island of Lombok, then journey directly
+                to the vibrant shores of Gili Trawangan. Dive into an underwater
+                paradise with a refreshing snorkeling session, or simply enjoy
+                the island's laid-back charm during your free time.
+              </p>
             </div>
             <div class="swiper-slide itinerary-item" data-category="sumbawa">
               <img alt="Sumbawa" src="images/about.jpg" />
-              <h1>Sumbawa</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h1>Peaceful Sumbawa</h1>
+              <p>
+                The journey continues to Kenawa Island, a true hidden gem.
+                Embark on a short trek to the hilltop for breathtaking panoramic
+                views of Lombok and Sumbawa, or capture stunning photos amidst
+                the expansive grassy fields below. As the day draws to a close,
+                our boat glides towards the tranquil waters of Saleh Bay for a
+                peaceful overnight stay.
+              </p>
             </div>
             <div class="swiper-slide itinerary-item" data-category="komodo">
               <img alt="Komodo Island" src="images/about.jpg" />
-              <h1>Komodo Island</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h1>Sumbawa's Gentle Giants</h1>
+              <p>
+                Experience an unforgettable morning in Saleh Bay, West Sumbawa,
+                where you'll have the incredible opportunity to snorkel
+                alongside majestic whale sharks. Afterward, our voyage continues
+                eastward, charting a course for the legendary Komodo Islands.
+              </p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="komodo">
+              <img alt="Komodo Island" src="images/about.jpg" />
+              <h1>Flores: Sea of Wonders</h1>
+              <p>
+                Wake up to the wonders of Komodo Island, where you'll embark on
+                a thrilling trek to witness the ancient Komodo dragons in their
+                natural habitat, guided by an expert ranger. Next, we journey to
+                the iconic Pink Beach for an unforgettable snorkeling experience
+                or simply to relax on its unique rosy sands. As evening
+                approaches, we ascend to the summit of Padar Island for a truly
+                spectacular sunset vista.
+              </p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="komodo">
+              <img alt="Komodo Island" src="images/about.jpg" />
+              <h1>Komodo Island Treasures</h1>
+              <p>
+                Our final day unfolds with an invigorating snorkeling adventure
+                at Manjerite, revealing a vibrant underwater world of colorful
+                corals. Then, we venture to Kelor Island for a rewarding trek,
+                immersing ourselves in its natural beauty.
+              </p>
             </div>
           </div>
           <!-- Dot Pagination -->
           <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- Facility Section -->
+      <section class="content-section" id="facility">
+        <h2>Facility</h2>
+        <p>
+          When you book with us, you can relax knowing almost everything is
+          taken care of! We've thoughtfully designed our inclusions to ensure a
+          seamless and unforgettable journey.
+        </p>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide itinerary-item" data-category="facility">
+              <img alt="Facility" src="images/about.jpg" />
+              <h1>Effortless Transfers</h1>
+              <p>
+                From the moment you arrive at our meeting point, we've got your
+                transportation covered. Enjoy comfortable, round-trip shuttle
+                service to and from the harbor, so you can focus on the
+                adventure ahead.
+              </p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="facility">
+              <img alt="Facility" src="images/about.jpg" />
+              <h1>Comfortable Experience</h1>
+              <p>
+                Your home for six incredible days will be our well-appointed
+                live-aboard boat, setting sail every two weeks for your
+                convenience. Whether you choose the cozy Deck Class or the
+                private Cabin Class, you'll have a comfortable space to relax
+                and recharge after a day of exploration.
+              </p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="facility">
+              <img alt="Facility" src="images/about.jpg" />
+              <h1>Delicious Dining</h1>
+              <p>
+                Get ready to indulge in 15 delicious meals prepared right on
+                board! Our chefs create varied menus, and we're happy to
+                accommodate your requests to ensure every meal is a delight.
+                Plus, stay refreshed with unlimited mineral water, coffee, and
+                tea throughout your journey.
+              </p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="facility">
+              <img alt="Facility" src="images/about.jpg" />
+              <h1>Hassle-Free Activities</h1>
+              <p>
+                Forget about hidden fees! All your access is sorted, including
+                parking, tolls, and entrance fees for all tourist attractions,
+                most notably the magnificent Komodo National Park. We also
+                provide full snorkeling gear, so you're ready to dive into the
+                vibrant underwater world whenever the opportunity arises.
+              </p>
+            </div>
+            <div class="swiper-slide itinerary-item" data-category="facility">
+              <img alt="Facility" src="images/about.jpg" />
+              <h1>Safety is Our Priority</h1>
+              <p>
+                Travel with peace of mind knowing your safety is paramount. We
+                include a reliable speedboat tender for comfortable excursions
+                to various spots and keep a comprehensive first aid kit on
+                board, ensuring you're well looked after every step of the way.
+              </p>
+            </div>
+          </div>
+          <!-- Dot Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- Terms & Conditions Section -->
+      <section class="content-section" id="terms">
+        <div class="terms-container">
+          <h2>Terms &amp; Conditions</h2>
+          <ul>
+            <li>
+              <strong>Personal Expenses:</strong> Any expenses outside of the
+              included tour package components are the responsibility of the
+              tour participant.
+            </li>
+            <li>
+              <strong>Itinerary Changes:</strong> The tour program may change at
+              any time due to weather conditions.
+            </li>
+            <li>
+              <strong>Optional Activities:</strong> The price does not include
+              optional tours or additional attractions.
+            </li>
+            <li>
+              <strong>Excess Fuel Surcharge:</strong> The price does not include
+              any additional fuel costs for pickups outside of reasonable
+              limits.
+            </li>
+            <li>
+              <strong>Not Included:</strong> The price does not include:
+              Flights, Guide Gratuities (voluntary), Personal necessities.
+            </li>
+          </ul>
         </div>
       </section>
 

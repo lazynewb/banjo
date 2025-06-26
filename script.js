@@ -1,106 +1,82 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Content Reveal Animation using IntersectionObserver
+  // Content Reveal Animation
   const sections = document.querySelectorAll(".content-section");
-  const observerOptions = { threshold: 0.15 };
   const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      } else {
-        // Remove visible to allow re-animation when scrolling back into view
-        entry.target.classList.remove("visible");
-      }
-    });
-  }, observerOptions);
+    entries.forEach((entry) =>
+      entry.target.classList.toggle("visible", entry.isIntersecting)
+    );
+  }, { threshold: 0.15 });
   sections.forEach((section) => sectionObserver.observe(section));
 
-  // Utility function for opening chat popups
+  // Chat popup utility
   function openChat(url, button, openingText, defaultText) {
     button.disabled = true;
     button.textContent = openingText;
     setTimeout(() => {
       const popup = window.open(url, "_blank");
-      if (!popup) {
-        alert("Popup blocked! Please allow popups for this website.");
-      }
+      if (!popup) alert("Popup blocked! Please allow popups.");
       button.disabled = false;
       button.textContent = defaultText;
     }, 500);
   }
 
-  // WhatsApp Form Submission
+  // WhatsApp Form
   const form = document.getElementById("whatsappForm");
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const needs = document.getElementById("needs").value.trim();
-      if (!needs) {
-        alert("Please enter your needs.");
-        return;
-      }
+      if (!needs) return alert("Please enter your needs.");
+      const btn = form.querySelector("button[type='submit']");
       const url =
         "https://api.whatsapp.com/send?phone=6281584214011&text=" +
         encodeURIComponent(needs);
-      const whatsappButton = form.querySelector("button[type='submit']");
-      openChat(url, whatsappButton, "Opening WhatsApp...", "Chat on WhatsApp");
+      openChat(url, btn, "Opening WhatsApp...", "Chat on WhatsApp");
     });
   }
 
-  // Telegram Button Handler
-  const telegramButton = document.getElementById("telegramButton");
-  if (telegramButton) {
-    telegramButton.addEventListener("click", () => {
+  // Telegram Button
+  const telegramBtn = document.getElementById("telegramButton");
+  if (telegramBtn) {
+    telegramBtn.addEventListener("click", () => {
       const needs = document.getElementById("needs").value.trim();
-      if (!needs) {
-        alert("Please enter your needs.");
-        return;
-      }
-      const telegramUrl =
-        "https://t.me/wadetrip?text=" + encodeURIComponent(needs);
-      openChat(
-        telegramUrl,
-        telegramButton,
-        "Opening Telegram...",
-        "Chat on Telegram"
-      );
+      if (!needs) return alert("Please enter your needs.");
+      const url = "https://t.me/wadetrip?text=" + encodeURIComponent(needs);
+      openChat(url, telegramBtn, "Opening Telegram...", "Chat on Telegram");
     });
   }
 
-  // Smooth Scroll for Internal Links with offset and highlight animation
-  const internalLinks = document.querySelectorAll('a[href^="#"]');
-  internalLinks.forEach((link) => {
+  // Smooth Scroll + Highlight
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
-      const targetId = this.getAttribute("href").slice(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        const headerHeight =
-          document.querySelector("header.site-header")?.offsetHeight || 0;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - headerHeight;
-        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-        targetElement.classList.add("highlight");
-        setTimeout(() => targetElement.classList.remove("highlight"), 1000);
-      }
+      const id = this.getAttribute("href").slice(1);
+      const el = document.getElementById(id);
+      if (!el) return;
+      const headerH =
+        document.querySelector("header.site-header")?.offsetHeight || 0;
+      const topPos =
+        el.getBoundingClientRect().top + window.pageYOffset - headerH;
+      window.scrollTo({ top: topPos, behavior: "smooth" });
+      el.classList.add("highlight");
+      setTimeout(() => el.classList.remove("highlight"), 1000);
     });
   });
 
-  // Parallax Scrolling using requestAnimationFrame with prefers-reduced-motion check
+  // Parallax
   const parallaxEls = document.querySelectorAll(".hero, .about-hero");
-  let lastKnownScrollPosition = 0;
-  let ticking = false;
-  const prefersReducedMotion = window.matchMedia(
+  let lastScroll = 0,
+    ticking = false;
+  const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
-  if (!prefersReducedMotion) {
+  if (!reduceMotion) {
     window.addEventListener("scroll", () => {
-      lastKnownScrollPosition = window.pageYOffset;
+      lastScroll = window.pageYOffset;
       if (!ticking) {
         window.requestAnimationFrame(() => {
           parallaxEls.forEach((el) => {
-            const offset = lastKnownScrollPosition * 0.5;
-            el.style.backgroundPosition = `center ${offset}px`;
+            el.style.backgroundPosition = `center ${lastScroll * 0.5}px`;
           });
           ticking = false;
         });
@@ -109,40 +85,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Swiper Initialization with Touch and Mousewheel Gestures & Dot Pagination
+  // Swiper Init
   const swiper = new Swiper(".swiper-container", {
     slidesPerView: 1.2,
     spaceBetween: 20,
-    loop: false,
     simulateTouch: true,
     grabCursor: true,
-    // Enable mousewheel scrolling for two-finger touchpad gestures
     mousewheel: { forceToAxis: true },
-    // Dot pagination configuration
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
-    },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
   });
 
-  // Service Worker Registration for PWA
+  // Equalize Card Heights
+  function equalizeCardHeights() {
+    let maxH = 0;
+    const cards = document.querySelectorAll(".swiper-slide");
+    cards.forEach((c) => (c.style.height = "auto"));
+    cards.forEach((c) => (maxH = Math.max(maxH, c.offsetHeight)));
+    cards.forEach((c) => (c.style.height = maxH + "px"));
+  }
+
+  // Equalize Slide Headings
+  function equalizeSlideHeadings() {
+    const heads = document.querySelectorAll(".swiper-slide h1");
+    let maxH = 0;
+    heads.forEach((h) => (h.style.minHeight = ""));
+    heads.forEach((h) => (maxH = Math.max(maxH, h.offsetHeight)));
+    heads.forEach((h) => (h.style.minHeight = maxH + "px"));
+  }
+
+  equalizeCardHeights();
+  equalizeSlideHeadings();
+  window.addEventListener("resize", () => {
+    equalizeCardHeights();
+    equalizeSlideHeadings();
+  });
+
+  // Mobile Menu Toggle
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+    // close menu on link click
+    navLinks.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => navLinks.classList.remove("show"))
+    );
+    // hide on desktop resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) navLinks.classList.remove("show");
+    });
+  }
+
+  // Service Worker
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker
         .register("service-worker.js")
-        .then((registration) => {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
-        })
-        .catch((error) => {
-          console.error("Service Worker registration failed:", error);
-        });
+        .then((reg) => console.log("SW registered:", reg.scope))
+        .catch((err) => console.error("SW failed:", err));
     });
   }
 });
