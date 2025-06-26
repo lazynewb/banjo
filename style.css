@@ -234,7 +234,7 @@ footer {
   }
 }
 
-/* Swiper Styling */
+/* Swiper Styling (defaults) */
 .swiper-container {
   position: relative;
   width: 100%;
@@ -246,8 +246,8 @@ footer {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 400px;   /* cap for desktop/tablet */
+  margin: 0 auto;     /* center on larger screens */
 }
 .swiper-slide img {
   width: 100%;
@@ -265,24 +265,22 @@ footer {
   z-index: 10;
 }
 
-/* Only paragraphs in Swiper slides get justified text */
-.swiper-container .swiper-slide p {
-  text-align: justify;
-  margin: 1rem;
+/* Mobile override: full-width slides under 640px */
+@media (max-width: 639px) {
+  .swiper-container {
+    padding: 1rem 0;
+  }
+  .swiper-slide {
+    max-width: none;  /* remove cap */
+    width: 100%;      /* fill container */
+    margin: 0;        /* remove centering */
+  }
 }
 
-/* Only headings in Swiper slides get centered text */
-.swiper-container .swiper-slide h1 {
-  text-align: center;
-  margin: 1rem;
-}
-
-/* hide the toggle on desktop */
+/* Mobile Menu Toggle */
 .menu-toggle {
   display: none;
 }
-
-/* at mobile sizes, show hamburger, hide links */
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;
@@ -294,7 +292,7 @@ footer {
   .nav-links {
     display: none;
     position: absolute;
-    top: 100%; /* under header */
+    top: 100%;  /* under header */
     left: 0;
     width: 100%;
     background: var(--white);
@@ -305,16 +303,5 @@ footer {
   }
   .nav-links.show {
     display: flex;
-  }
-}
-
-/* —— New: Force Swiper slides to fill mobile viewport —— */
-@media (max-width: 639px) {
-  .swiper-container .swiper-slide {
-    max-width: none;
-    width: 100%;
-  }
-  .swiper-container {
-    padding: 1rem 0;
   }
 }

@@ -86,35 +86,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 7) Swiper Init with Breakpoints
+  // 7) Swiper Init with Mobile-First Defaults
   const swiper = new Swiper(".swiper-container", {
-    // default desktop
-    slidesPerView: 3,
-    spaceBetween: 20,
-
-    // responsive
-    breakpoints: {
-      // mobile up to 639px
-      0: {
-        slidesPerView: 1,
-        spaceBetween: 10,
-      },
-      // tablet 640px+
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      // desktop 1024px+
-      1024: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-      },
-    },
+    // default for < 640px: one full-width slide
+    slidesPerView: 1,
+    spaceBetween: 10,
 
     simulateTouch: true,
     grabCursor: true,
     mousewheel: { forceToAxis: true },
     pagination: { el: ".swiper-pagination", clickable: true },
+
+    // overrides at larger breakpoints
+    breakpoints: {
+      // ≥ 640px: two slides
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      // ≥ 1024px: three slides
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+    },
   });
 
   // 8) Equalize Card Heights
@@ -149,11 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
     menuToggle.addEventListener("click", () => {
       navLinks.classList.toggle("show");
     });
-    // close on link click
     navLinks.querySelectorAll("a").forEach((a) =>
       a.addEventListener("click", () => navLinks.classList.remove("show"))
     );
-    // hide if resized above mobile
     window.addEventListener("resize", () => {
       if (window.innerWidth > 768) navLinks.classList.remove("show");
     });
