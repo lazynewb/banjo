@@ -3,14 +3,12 @@ document.querySelectorAll('.nav__link').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
     const targetId = link.getAttribute('href').slice(1);
-    const section = document.getElementById(targetId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
+    const section  = document.getElementById(targetId);
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
   });
 });
 
-// Generic slider functionality with dynamic slides-per-view + swipe/drag support
+// Generic slider functionality with dynamic slides-per-view + gap-aware swipe/drag
 function initSlider(sliderName) {
   const container   = document.querySelector(`.${sliderName}-slider`);
   const viewport    = container.querySelector('.slider__viewport');
@@ -21,10 +19,19 @@ function initSlider(sliderName) {
   let startX        = 0;
   let deltaX        = 0;
   let dragging      = false;
-  let perView       = 0;
-  let baseOffsetPct = 0;
+  let slideWidth    = 0;
+  let gap           = 0;
+  let baseOffsetPx  = 0;
 
-  // how many slides to show
+  // Measure one slide’s full width (including gap)
+  function measure() {
+    const style = getComputedStyle(viewport);
+    slideWidth = slides[0].getBoundingClientRect().width;
+    // some browsers use columnGap, others gap
+    gap = parseFloat(style.columnGap || style.gap) || 0;
+  }
+
+  // Determine how many slides fit in view
   function slidesPerView() {
     const w = window.innerWidth;
     if (w >= 1024) return 4;
@@ -32,20 +39,22 @@ function initSlider(sliderName) {
     return 2;
   }
 
-  // reposition and clamp index, disable buttons
+  // Reposition and clamp index, disable buttons
   function update() {
-    perView = slidesPerView();
+    const perView  = slidesPerView();
     const maxIndex = slides.length - perView;
-    currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+    currentIndex   = Math.max(0, Math.min(currentIndex, maxIndex));
 
-    const offsetPct = (currentIndex * 100) / perView;
-    viewport.style.transform = `translateX(-${offsetPct}%)`;
+    measure();
+    baseOffsetPx = currentIndex * (slideWidth + gap);
+    viewport.style.transition = 'transform 0.5s ease';
+    viewport.style.transform  = `translateX(-${baseOffsetPx}px)`;
 
     prevBtn.disabled = currentIndex === 0;
     nextBtn.disabled = currentIndex === maxIndex;
   }
 
-  // click handlers
+  // Button click handlers
   prevBtn.addEventListener('click', () => {
     currentIndex--;
     update();
@@ -55,51 +64,50 @@ function initSlider(sliderName) {
     update();
   });
 
-  // recalc on resize
+  // Recalc on resize
   window.addEventListener('resize', update);
 
-  // pointer (mouse/touch) dragging
+  // Pointer down (mouse or touch)
   viewport.addEventListener('pointerdown', e => {
-    dragging = true;
-    startX   = e.clientX;
-    perView  = slidesPerView();
-    baseOffsetPct = (currentIndex * 100) / perView;
+    dragging       = true;
+    startX         = e.clientX;
+    measure();
+    baseOffsetPx   = currentIndex * (slideWidth + gap);
     viewport.style.transition = 'none';
     viewport.setPointerCapture(e.pointerId);
   });
 
+  // Pointer move (drag)
   viewport.addEventListener('pointermove', e => {
     if (!dragging) return;
     deltaX = e.clientX - startX;
-    const pctDrag = (deltaX / viewport.clientWidth) * 100;
-    viewport.style.transform = `translateX(${-baseOffsetPct + pctDrag}%)`;
+    viewport.style.transform = `translateX(${ -baseOffsetPx + deltaX }px)`;
   });
 
+  // End drag: snap to nearest slide
   function endDrag() {
     if (!dragging) return;
     dragging = false;
-    viewport.style.transition = 'transform 0.5s ease';
-
-    const threshold = viewport.clientWidth / 4;
+    // snap threshold: one-third of slide width
+    const threshold = slideWidth / 3;
     if (deltaX < -threshold) currentIndex++;
     if (deltaX >  threshold) currentIndex--;
     deltaX = 0;
     update();
   }
 
-  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointerup',    endDrag);
   viewport.addEventListener('pointercancel', endDrag);
-  viewport.addEventListener('pointerleave', endDrag);
+  viewport.addEventListener('pointerleave',  endDrag);
 
-  // initial position
+  // Initial position
   update();
 }
 
-// initialize all three carousels
+// Initialize all carousels
 initSlider('itinerary');
 initSlider('facility');
 initSlider('pricing');
-
 
 // Contact buttons
 const whatsappBtn = document.getElementById('whatsappBtn');
