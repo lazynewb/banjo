@@ -240,6 +240,9 @@ main {
 .terms {
   background-color: #fff;
   margin-block-end: 4rem;
+  max-width: 800px;         /* or any width you prefer */
+  margin-inline: auto;      /* center horizontally */
+  padding-inline: var(--gutter-x);
 }
 
 .terms h2 {
