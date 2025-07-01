@@ -240,15 +240,15 @@ main {
 .terms {
   background-color: #fff;
   margin-block-end: 2rem;
-  padding-block: 2rem;         /* smaller vertical padding on phones */
-  padding-inline: 1rem;        /* smaller horizontal padding on phones */
+  padding-block: 3rem;         /* smaller vertical padding on phones */
+  padding-inline: 3rem;        /* smaller horizontal padding on phones */
 }
 
 /* 2. Tablet and up — tweak as needed */
 @media (min-width: 768px) {
   .terms {
-    padding-block: 2rem;       /* more breathing room on tablets */
-    padding-inline: 1rem;
+    padding-block: 3rem;       /* more breathing room on tablets */
+    padding-inline: 3rem;
   }
 }
 
@@ -256,7 +256,7 @@ main {
 @media (min-width: 1024px) {
   .terms {
     padding-block: 3rem;       /* match your desktop rhythm */
-    padding-inline: 10rem;      /* or var(--gutter-x) if you like */
+    padding-inline: 20rem;      /* or var(--gutter-x) if you like */
   }
 }
 
