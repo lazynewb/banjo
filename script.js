@@ -10,24 +10,37 @@ document.querySelectorAll('.nav__link').forEach((link) => {
   });
 });
 
-// Generic slider functionality
+// Generic slider functionality:
+// - Prev stops at 0
+// - Next wraps around (last → 0)
 function initSlider(sliderName) {
-  const slider = document.querySelector(`.${sliderName}-slider .slider__viewport`);
-  const slides = slider.querySelectorAll('.slide');
+  const container = document.querySelector(`.${sliderName}-slider`);
+  const viewport = container.querySelector('.slider__viewport');
+  const slides = viewport.querySelectorAll('.slide');
+  const prevBtn = container.querySelector('.prev');
+  const nextBtn = container.querySelector('.next');
   let index = 0;
-
-  function show(n) {
-    if (n < 0) index = slides.length - 1;
-    else if (n >= slides.length) index = 0;
-    else index = n;
-    slider.style.transform = `translateX(-${index * 100}%)`;
+  
+  function update() {
+    viewport.style.transform = `translateX(-${index * 100}%)`;
+    // optional: visually disable prev when at 0
+    if (index === 0) prevBtn.classList.add('disabled');
+    else prevBtn.classList.remove('disabled');
   }
-
-  document.querySelector(`.${sliderName}-slider .prev`)
-    .addEventListener('click', () => show(index - 1));
-
-  document.querySelector(`.${sliderName}-slider .next`)
-    .addEventListener('click', () => show(index + 1));
+  
+  prevBtn.addEventListener('click', () => {
+    if (index > 0) {
+      index--;
+      update();
+    }
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    update();
+  });
+  
+  update();
 }
 
 // Initialize both sliders
@@ -41,12 +54,10 @@ const messageInput = document.getElementById('messageInput');
 
 whatsappBtn.addEventListener('click', () => {
   const text = encodeURIComponent(messageInput.value || 'Hello!');
-  const url = `https://wa.me/6281584214011?text=${text}`;
-  window.open(url, '_blank');
+  window.open(`https://wa.me/6281584214011?text=${text}`, '_blank');
 });
 
 telegramBtn.addEventListener('click', () => {
   const text = encodeURIComponent(messageInput.value || 'Hello!');
-  const url = `https://t.me/wadetrip?text=${text}`;
-  window.open(url, '_blank');
+  window.open(`https://t.me/wadetrip?text=${text}`, '_blank');
 });
