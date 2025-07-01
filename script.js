@@ -1,51 +1,70 @@
 // Smooth scroll for header links
-document.querySelectorAll('.nav__link').forEach((link) => {
-  link.addEventListener('click', (e) => {
+document.querySelectorAll('.nav__link').forEach(link => {
+  link.addEventListener('click', e => {
     e.preventDefault();
-    const target = link.getAttribute('href').slice(1);
-    const section = document.getElementById(target);
+    const targetId = link.getAttribute('href').slice(1);
+    const section = document.getElementById(targetId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
 
-// Generic slider functionality:
-// - Prev stops at 0
-// - Next wraps around (last → 0)
+// Generic slider functionality with dynamic slides-per-view
 function initSlider(sliderName) {
   const container = document.querySelector(`.${sliderName}-slider`);
   const viewport = container.querySelector('.slider__viewport');
-  const slides = viewport.querySelectorAll('.slide');
+  const slides = Array.from(viewport.children);
   const prevBtn = container.querySelector('.prev');
   const nextBtn = container.querySelector('.next');
-  let index = 0;
-  
-  function update() {
-    viewport.style.transform = `translateX(-${index * 100}%)`;
-    // optional: visually disable prev when at 0
-    if (index === 0) prevBtn.classList.add('disabled');
-    else prevBtn.classList.remove('disabled');
+  let currentIndex = 0;
+
+  // determine how many slides fit in view
+  function slidesPerView() {
+    const w = window.innerWidth;
+    if (w >= 1024) return 4;
+    if (w >= 768)  return 3;
+    return 2;
   }
-  
+
+  // reposition and clamp index, disable buttons at edges
+  function update() {
+    const perView = slidesPerView();
+    const maxIndex = slides.length - perView;
+    // clamp
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+    // translate by percentage of viewport
+    const offsetPercent = (currentIndex * 100) / perView;
+    viewport.style.transform = `translateX(-${offsetPercent}%)`;
+
+    // toggle disabled states
+    prevBtn.disabled = (currentIndex === 0);
+    nextBtn.disabled = (currentIndex === maxIndex);
+  }
+
   prevBtn.addEventListener('click', () => {
-    if (index > 0) {
-      index--;
-      update();
-    }
-  });
-  
-  nextBtn.addEventListener('click', () => {
-    index = (index + 1) % slides.length;
+    currentIndex--;
     update();
   });
-  
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    update();
+  });
+
+  // recalc on resize
+  window.addEventListener('resize', update);
+
+  // initial position
   update();
 }
 
-// Initialize both sliders
+// initialize all three carousels
 initSlider('itinerary');
 initSlider('facility');
+initSlider('pricing');
 
 // Contact buttons
 const whatsappBtn = document.getElementById('whatsappBtn');
