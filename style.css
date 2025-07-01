@@ -3,7 +3,7 @@
   --color-primary: #005f73;
   --color-secondary: #0a9396;
   --color-accent: #94d2bd;
-  --color-bg: #e9d8a6;
+  --color-bg: #ffefc1;
   --color-text: #001219;
   --header-height: 60px;
 }
@@ -34,16 +34,17 @@ header.header {
   top: 0;
   width: 100%;
   height: var(--header-height);
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.85);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  padding-top: 0.4rem;
   z-index: 1000;
 }
 
 .header__logo img {
-  height: 40px;
+  height: 50px;
 }
 
 .header__nav {
@@ -52,7 +53,7 @@ header.header {
 }
 
 .nav__link {
-  font-weight: 600;
+  font-weight: 550;
   color: var(--color-primary);
   transition: color 0.3s;
 }
@@ -89,6 +90,11 @@ main {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
+  
+  /* then push children down from the top */
+  padding-top: 50%;
+  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
