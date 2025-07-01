@@ -178,8 +178,15 @@ main {
 
 .slider__viewport {
   display: flex;
+  gap: 1rem;
   transition: transform 0.5s ease;
   will-change: transform;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.slider__viewport:active {
+  cursor: grabbing;
 }
 
 .slide {
@@ -423,5 +430,15 @@ main {
   }
   .hero__overlay h1 {
     font-size: 1.5rem;
+  }
+}
+
+/* Desktop override: show 4 slides in itinerary, facility & pricing */
+@media (min-width: 1024px) {
+  .itinerary-slider .slide,
+  .facility-slider .slide,
+  .pricing-slider .slide {
+    flex: 0 0 25%;
+    min-width: 25%;
   }
 }
