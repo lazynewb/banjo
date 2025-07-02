@@ -116,13 +116,15 @@ main {
 }
 
 /* Global section padding */
+.u-p-xy,
 .hero,
+.hero__overlay h1,
 .slider,
 .terms,
 .pricing,
 .contact {
   padding-block: var(--gutter-y);
-  padding-inline: var(--gutter-x);
+  padding-inline: 0 !important;
 }
 
 /* Hero */
@@ -401,12 +403,22 @@ main {
   border: none;
   background-color: var(--color-primary);
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: var(--radius);
   cursor: pointer;
   transition:
     transform var(--transition-speed),
     background-color var(--transition-speed);
+}
+
+/* Messenger button specific */
+#messengerBtn {
+  background-color: #0084FF;
+}
+
+#messengerBtn:hover,
+#messengerBtn:focus {
+  background-color: #006BBF;
 }
 
 .contact-buttons button:hover,
@@ -440,5 +452,18 @@ main {
   .pricing-slider .slide {
     flex: 0 0 25%;
     min-width: 25%;
+  }
+}
+
+/* Re-enable inline gutters on desktop ≥468px */
+@media (min-width: 468px) {
+  .u-p-xy,
+  .hero,
+  .hero__overlay h1,
+  .slider,
+  .terms,
+  .pricing,
+  .contact {
+    padding-inline: var(--gutter-x) !important;
   }
 }

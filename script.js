@@ -27,7 +27,6 @@ function initSlider(sliderName) {
   function measure() {
     const style = getComputedStyle(viewport);
     slideWidth = slides[0].getBoundingClientRect().width;
-    // some browsers use columnGap, others gap
     gap = parseFloat(style.columnGap || style.gap) || 0;
   }
 
@@ -88,7 +87,6 @@ function initSlider(sliderName) {
   function endDrag() {
     if (!dragging) return;
     dragging = false;
-    // snap threshold: one-third of slide width
     const threshold = slideWidth / 3;
     if (deltaX < -threshold) currentIndex++;
     if (deltaX >  threshold) currentIndex--;
@@ -110,8 +108,9 @@ initSlider('facility');
 initSlider('pricing');
 
 // Contact buttons
-const whatsappBtn = document.getElementById('whatsappBtn');
+const whatsappBtn  = document.getElementById('whatsappBtn');
 const telegramBtn  = document.getElementById('telegramBtn');
+const messengerBtn = document.getElementById('messengerBtn');
 const messageInput = document.getElementById('messageInput');
 
 whatsappBtn.addEventListener('click', () => {
@@ -122,4 +121,10 @@ whatsappBtn.addEventListener('click', () => {
 telegramBtn.addEventListener('click', () => {
   const text = encodeURIComponent(messageInput.value || 'Hello!');
   window.open(`https://t.me/wadetrip?text=${text}`, '_blank');
+});
+
+messengerBtn.addEventListener('click', () => {
+  const text = encodeURIComponent(messageInput.value || 'Hello!');
+  // replace YOUR_PAGE_USERNAME with your Facebook Page's username or ID
+  window.open(`https://m.me/646691665202136{text}`, '_blank');
 });
