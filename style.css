@@ -60,6 +60,7 @@
   padding: 0;
 }
 
+/* Mobile-first backgrounds */
 body {
   font-family: var(--font);
   color: var(--color-text);
@@ -68,6 +69,12 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Container spans full width on mobile */
+.container {
+  background-color: var(--color-bg);
+}
+
+/* Links */
 a {
   text-decoration: none;
   color: inherit;
@@ -116,15 +123,13 @@ main {
 }
 
 /* Global section padding */
-.u-p-xy,
 .hero,
-.hero__overlay h1,
 .slider,
 .terms,
 .pricing,
 .contact {
   padding-block: var(--gutter-y);
-  padding-inline: 0 !important;
+  padding-inline: var(--gutter-x);
 }
 
 /* Hero */
@@ -256,7 +261,7 @@ main {
 
 /* Terms & Conditions */
 .terms {
-  background-color: #fff;
+  background-color: var(--color-bg);
   margin-block-end: 2rem;
   padding-block: 3rem;
   padding-inline: 3rem;
@@ -277,14 +282,14 @@ main {
 }
 
 .terms h2 {
-  color: var(--color-primary);
+  color: var(--color-text);
   margin-block-end: 1rem;
   text-align: center;
 }
 
 .terms ul {
   list-style: disc inside;
-  color: #000;
+  color: var(--color-text);
 }
 
 .terms li {
@@ -365,12 +370,12 @@ main {
 
 /* Contact */
 .contact {
-  background-color: #fff;
+  background-color: var(--color-bg);
 }
 
 .contact h2 {
   text-align: center;
-  color: var(--color-primary);
+  color: var(--color-text);
   margin-block-end: 1.5rem;
 }
 
@@ -401,7 +406,7 @@ main {
 .contact-buttons button {
   padding: 0.8rem 1.5rem;
   border: none;
-  background-color: var(--color-primary);
+  background-color: #0084FF;
   color: #fff;
   font-weight: 500;
   border-radius: var(--radius);
@@ -445,7 +450,7 @@ main {
   }
 }
 
-/* Desktop override: show 4 slides in itinerary, facility & pricing */
+/* Show 4 slides in itinerary, facility & pricing at desktop */
 @media (min-width: 1024px) {
   .itinerary-slider .slide,
   .facility-slider .slide,
@@ -455,15 +460,22 @@ main {
   }
 }
 
-/* Re-enable inline gutters on desktop ≥468px */
-@media (min-width: 719px) {
-  .u-p-xy,
-  .hero,
-  .hero__overlay h1,
-  .slider,
-  .terms,
-  .pricing,
-  .contact {
-    padding-inline: var(--gutter-x) !important;
+/* Desktop-only overrides */
+@media (min-width: 1024px) {
+  /* Add horizontal margins to the slider container */
+  .slider {
+    /* Shrink width by 1 gutters, then center */
+    width: calc(100% - 1 * var(--gutter-x));
+    margin-inline: auto;
+  }
+
+  /* Position prev button using the same horizontal gutter */
+  .slider__btn.prev {
+    inset-inline-start: var(--gutter-x);
+  }
+
+  /* Position next button using the same horizontal gutter */
+  .slider__btn.next {
+    inset-inline-end: var(--gutter-x);
   }
 }
