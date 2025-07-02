@@ -456,7 +456,7 @@ main {
 }
 
 /* Re-enable inline gutters on desktop ≥468px */
-@media (min-width: 468px) {
+@media (min-width: 540px) {
   .u-p-xy,
   .hero,
   .hero__overlay h1,
