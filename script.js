@@ -23,14 +23,12 @@ function initSlider(sliderName) {
   let gap           = 0;
   let baseOffsetPx  = 0;
 
-  // Measure one slide’s full width (including gap)
   function measure() {
     const style = getComputedStyle(viewport);
     slideWidth = slides[0].getBoundingClientRect().width;
     gap = parseFloat(style.columnGap || style.gap) || 0;
   }
 
-  // Determine how many slides fit in view
   function slidesPerView() {
     const w = window.innerWidth;
     if (w >= 1024) return 4;
@@ -38,7 +36,6 @@ function initSlider(sliderName) {
     return 2;
   }
 
-  // Reposition and clamp index, disable buttons
   function update() {
     const perView  = slidesPerView();
     const maxIndex = slides.length - perView;
@@ -49,11 +46,10 @@ function initSlider(sliderName) {
     viewport.style.transition = 'transform 0.5s ease';
     viewport.style.transform  = `translateX(-${baseOffsetPx}px)`;
 
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === maxIndex;
+    prevBtn.disabled = (currentIndex === 0);
+    nextBtn.disabled = (currentIndex === maxIndex);
   }
 
-  // Button click handlers
   prevBtn.addEventListener('click', () => {
     currentIndex--;
     update();
@@ -63,10 +59,8 @@ function initSlider(sliderName) {
     update();
   });
 
-  // Recalc on resize
   window.addEventListener('resize', update);
 
-  // Pointer down (mouse or touch)
   viewport.addEventListener('pointerdown', e => {
     dragging       = true;
     startX         = e.clientX;
@@ -76,14 +70,12 @@ function initSlider(sliderName) {
     viewport.setPointerCapture(e.pointerId);
   });
 
-  // Pointer move (drag)
   viewport.addEventListener('pointermove', e => {
     if (!dragging) return;
     deltaX = e.clientX - startX;
     viewport.style.transform = `translateX(${ -baseOffsetPx + deltaX }px)`;
   });
 
-  // End drag: snap to nearest slide
   function endDrag() {
     if (!dragging) return;
     dragging = false;
@@ -98,7 +90,6 @@ function initSlider(sliderName) {
   viewport.addEventListener('pointercancel', endDrag);
   viewport.addEventListener('pointerleave',  endDrag);
 
-  // Initial position
   update();
 }
 
@@ -113,18 +104,38 @@ const telegramBtn  = document.getElementById('telegramBtn');
 const messengerBtn = document.getElementById('messengerBtn');
 const messageInput = document.getElementById('messageInput');
 
-whatsappBtn.addEventListener('click', () => {
-  const text = encodeURIComponent(messageInput.value || 'Hello!');
-  window.open(`https://wa.me/6281584214011?text=${text}`, '_blank');
+// reuse sendMessage helper from before
+function sendMessage(urlBase) {
+  const text = encodeURIComponent(
+    messageInput.value ||
+    'Hi. I just found your website and want to know more about this trip.'
+  );
+  window.open(`${urlBase}${text}`, '_blank');
+}
+
+// map platforms → base URLs
+const chatMap = {
+  whatsapp: 'https://wa.me/6285183054478?text=',
+  telegram:  'https://t.me/wadetrip?text=',
+  messenger: 'https://m.me/646691665202136?text='
+};
+
+// hook all .chat-icon buttons
+document.querySelectorAll('.chat-icon').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const platform = btn.dataset.platform;
+    const baseUrl  = chatMap[platform];
+    if (baseUrl) sendMessage(baseUrl);
+  });
 });
 
-telegramBtn.addEventListener('click', () => {
-  const text = encodeURIComponent(messageInput.value || 'Hello!');
-  window.open(`https://t.me/wadetrip?text=${text}`, '_blank');
-});
+// Chat Toggle: show/hide the contact panel
+const chatToggle    = document.querySelector('.chat-toggle');
+const contactPanel  = document.getElementById('contact');
 
-messengerBtn.addEventListener('click', () => {
-  const text = encodeURIComponent(messageInput.value || 'Hello!');
-  // replace YOUR_PAGE_USERNAME with your Facebook Page's username or ID
-  window.open(`https://m.me/646691665202136{text}`, '_blank');
+chatToggle.addEventListener('click', () => {
+  contactPanel.classList.toggle('hidden');
+  if (!contactPanel.classList.contains('hidden')) {
+    messageInput.focus();
+  }
 });

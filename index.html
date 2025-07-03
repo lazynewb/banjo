@@ -36,10 +36,9 @@
             class="hero__img"
           />
           <div class="hero__overlay">
-            <h1>
-              Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit.
-            </h1>
+            <h2 class="hero__title">
+              Explore unforgettable island-hopping adventures from Bali to Labuan Bajo.
+            </h2>
           </div>
         </section>
 
@@ -225,8 +224,8 @@
           </button>
         </section>
 
-        <!-- Contact Message Box -->
-        <section id="contact" class="contact">
+        <!-- Contact Message Box (initially hidden) -->
+        <section id="contact" class="contact hidden">
           <h2>Let's have a chat</h2>
           <div class="message-box">
             <textarea
@@ -242,6 +241,32 @@
         </section>
       </main>
     </div>
+
+    <!-- Persistent Chat Icons -->
+<div class="chat-icons">
+  <button
+    class="chat-icon"
+    data-platform="whatsapp"
+    aria-label="Chat on WhatsApp"
+  >
+    <img src="images/whatsapp50.png" alt="WhatsApp" />
+  </button>
+  <button
+    class="chat-icon"
+    data-platform="telegram"
+    aria-label="Chat on Telegram"
+  >
+    <img src="images/telegram50.png" alt="Telegram" />
+  </button>
+  <button
+    class="chat-icon"
+    data-platform="messenger"
+    aria-label="Chat on Messenger"
+  >
+    <img src="images/messenger50.png" alt="Messenger" />
+  </button>
+</div>
+
 
     <script src="script.js"></script>
   </body>
